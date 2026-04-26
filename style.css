@@ -235,3 +235,151 @@
          position: relative;
         right: 20cm;    
         }
+
+        .button2 {
+            position: relative;
+            right: 20cm;
+            width: 40vh;
+            height: 16vh;
+            border: none;
+            background-color: #E2B86B;
+            border-radius: 25px;
+            margin-top: -28vh;
+            margin-bottom: 20vh;
+        }
+
+        .button2 h1 {
+            font-size: 66px;
+            font-family: "Playfair Display", serif;
+            color: #3A2C14;
+        }
+
+        .button3 {
+            position: relative;
+            Left: 20cm;
+            width: 40vh;
+            height: 16vh;
+            border: none;
+            background-color: #E2B86B;
+            border-radius: 25px;
+            margin-top: -28vh;
+            margin-bottom: 20vh;
+        }
+
+        .button3 h1 {
+            font-size: 66px;
+            font-family: "Playfair Display", serif;
+            color: #3A2C14;
+        }
+
+        .button4 {
+            position: relative;
+            right: 20cm;
+            width: 40vh;
+            height: 16vh;
+            border: none;
+            background-color: #E2B86B;
+            border-radius: 25px;
+            margin-bottom: 20vh;
+        }
+
+        .button4 h1 {
+            font-size: 66px;
+            font-family: "Playfair Display", serif;
+            color: #3A2C14;
+        }
+
+        /* подвал доделать */
+        .footer {
+            position: relative;
+            width: 100vw;
+            height: 50vh;
+            background-image: url('podval.png');
+            background-size: cover;      
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-top: auto;
+        }
+
+       
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        
+        .left-col .museum-title {
+            margin-bottom: 30px;
+        }
+        .left-col h1 {
+            font-size: 38px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #2C2210;
+            margin-bottom: 15px;
+        }
+        .left-col h2 {
+            font-size: 24px;
+            font-weight: normal;
+            font-style: italic;
+            color: #3A2C14;
+            margin-bottom: 10px;
+        }
+        .left-col h3 {
+            font-size: 20px;
+            font-weight: normal;
+            color: #4A3A1A;
+            margin-bottom: 35px;
+        }
+        .contacts {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #2C2210;
+        }
+        .contacts p {
+            margin: 8px 0;
+        }
+        
+        .right-col .social-links {
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #2C2210;
+            border-bottom: 1px solid #8B7355;
+            display: inline-block;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        .right-col .social-item {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #3A2C14;
+        }
+        .right-col .social-item strong {
+            font-weight: bold;
+            color: #2C2210;
+        }
+        .newsletter {
+            margin-top: 30px;
+            font-size: 18px;
+            font-style: italic;
+            background: rgba(139, 115, 85, 0.15);
+            padding: 15px 20px;
+            border-left: 4px solid #8B7355;
+        }
+        .newsletter p {
+            margin: 5px 0;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #8B7355;
+            padding-top: 30px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #2C2210;
+        }
