@@ -206,3 +206,32 @@
                 transform: translateY(0);
             }
         }
+
+        .button1 {
+            background-image: url('knopka1.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 111vh;
+            height: 400px;
+            margin: 30px auto; 
+            border: none;
+            background-color: #ba8d3900;
+        }
+
+        .button1 h1 {
+            font-size: 55px;
+            font-family: "Playfair Display", serif;
+            margin-bottom: 50px;
+            color: #3A2C14;
+        }
+
+        .soul {
+        position: relative;
+        left: 20cm;   
+        }
+
+        .FY {
+         position: relative;
+        right: 20cm;    
+        }
