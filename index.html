@@ -6,6 +6,8 @@
     <title>МУП - Музей устаревших профессий</title>
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="cursor.css">
+       <link rel="stylesheet" href="podpiska.css">
 </head>
 <body>
         <div class="main-container">
@@ -40,13 +42,74 @@
         </div>
     </div>
 
+<a href="arxiv.html">
     <button type="button" class="button1"><h1>Перейти в архив</h1></button>
+</a>
 
     <img src="soul.png" alt="надпись Soul" class="soul">
-    <button type="button" class="button2"><h1>Афиша</h1></button>
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <button type="button" class="button2">
+        <h1>Афиша</h1>
+    </button>
+
+    <div id="afishaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-title">АФИША</div>
+
+            <div class="poster-list">
+                <div class="poster-item">
+                    <img src="af1.png" alt="Афиша событие 1">
+                </div>
+                <div class="poster-item">
+                    <img src="af2.png" alt="Афиша событие 2">
+                </div>
+                <div class="poster-item">
+                    <img src="af3.png" alt="Афиша событие 3">
+                </div>
+            </div>
+        </div>
+    </div>
     <img src="FY.png" alt="надпись Forever Young" class="FY">
+
+    <a href="novosti.html">
     <button type="button" class="button3"><h1>Новости</h1></button>
-    <button type="button" class="button4"><h1>Подписка</h1></button>
+    </a>
+
+    <!-- МОДАЛКА 2 -->
+<button type="button" class="button4"><h1>Подписка</h1></button>
+
+<div id="subscribeModal" class="modal-subscribe">
+    <div class="modal-subscribe-content">
+        <span class="close-subscribe">&times;</span>
+        <h2>ПОДПИСКА<br><span style="font-size: 1rem;">на новости</span></h2>
+
+
+        <div class="progress-wrapper">
+            <div class="progress-label">
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ВАШЕ ИМЯ</label>
+            <input type="text" id="subName" placeholder="Иван Петрович">
+            <div class="error-message" id="nameError"></div>
+        </div>
+
+        <div class="form-group">
+            <label>ПОЧТА</label>
+            <input type="email" id="subEmail" placeholder="example@mail.ru">
+            <div class="error-message" id="emailError"></div>
+        </div>
+
+        <button class="subscribe-btn" id="submitSubscribe">ПОДПИСАТЬСЯ</button>
+        <div id="formSuccessMessage" style="margin-top: 12px;"></div>
+    </div>
+</div>
 
     <footer>
      <div class="museum-hero">
@@ -88,6 +151,11 @@
     </div>
   </div>
     </footer> 
+
+<figure>
+
     <script src="citata.js"></script>
+    <script src="afisha.js"></script>
+    <script src="podpiska.js"></script>
 </body>
 </html>

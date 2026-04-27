@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МУП - Новости</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="novosti.css">
+     <link rel="stylesheet" href="cursor.css">
+</head>
+<body>
+    
+    <div class="top-left">
+        <a href="index.html" class="home-link">
+            🏛️ МУП
+        </a>
+    </div>
+
+    <div class="center-archive">
+        <div class="archive-title">Новости</div>
+    </div>
+
+ <img src="novosti.png" alt="Новость 1" class="novosti">
+
+
+ 
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('#FFF8ED');   
+        scene.fog = new THREE.FogExp2('#FFF8ED', 0.008); 
+
+        const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(5, 4, 6);
+        camera.lookAt(0, 0.5, 0);
+
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // тени для реализма
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+       
+        const labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = 'absolute';
+        labelRenderer.domElement.style.top = '0px';
+        labelRenderer.domElement.style.left = '0px';
+        labelRenderer.domElement.style.pointerEvents = 'none';
+        document.body.appendChild(labelRenderer.domElement);
+
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;      
+        controls.dampingFactor = 0.05;
+        controls.rotateSpeed = 1.2;
+        controls.zoomSpeed = 1.2;
+        controls.enableZoom = true;
+        controls.zoomSpeed = 0.8;
+        controls.enablePan = true;
+        controls.panSpeed = 0.8;
+        controls.target.set(0, 0.4, 0);
+
+        
+        const ambientLight = new THREE.AmbientLight(0x404060, 0.65);
+        scene.add(ambientLight);
+        
+        const mainLight = new THREE.DirectionalLight(0xfff5e0, 1.2);
+        mainLight.position.set(3, 5, 2);
+        mainLight.castShadow = true;
+        mainLight.receiveShadow = false;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
+        mainLight.shadow.camera.near = 0.5;
+        mainLight.shadow.camera.far = 8;
+        mainLight.shadow.camera.left = -5;
+        mainLight.shadow.camera.right = 5;
+        mainLight.shadow.camera.top = 5;
+        mainLight.shadow.camera.bottom = -5;
+        scene.add(mainLight);
+        
+        
+        const fillLight = new THREE.PointLight(0xd4b88a, 0.55);
+        fillLight.position.set(2, 1.5, 2.5);
+        scene.add(fillLight);
+        
+        
+        const backLight = new THREE.PointLight(0x88aaff, 0.4);
+        backLight.position.set(-1, 1.8, -3);
+        scene.add(backLight);
+        
+       
+        const fillBottom = new THREE.PointLight(0xccaa88, 0.25);
+        fillBottom.position.set(0, -1, 0);
+        scene.add(fillBottom);
+        
+       
+        const shadowPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(7, 7),
+            new THREE.ShadowMaterial({ opacity: 0.4, color: 0x000000, transparent: true, side: THREE.DoubleSide })
+        );
+        shadowPlane.rotation.x = -Math.PI / 2;
+        shadowPlane.position.y = -0.45;
+        shadowPlane.receiveShadow = true;
+        scene.add(shadowPlane);
+        
+        const gridHelper = new THREE.GridHelper(8, 20, 0xd9cba3, 0xe6dcc0);
+        gridHelper.position.y = -0.43;
+        gridHelper.material.transparent = true;
+        gridHelper.material.opacity = 0.2;
+        scene.add(gridHelper);
+        
+
+        function createLeftNewsTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#fef7e8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+         
+            for (let i = 0; i < 800; i++) {
+                ctx.fillStyle = `rgba(80, 60, 40, ${Math.random() * 0.08})`;
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+            }
+            
+            // Заголовок газеты
+            ctx.fillStyle = '#2d2a24';
+            ctx.font = `bold ${Math.floor(canvas.width * 0.07)}px "Georgia", "Times New Roman", serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText("📰 THE DAILY NEWS", canvas.width/2, canvas.height * 0.1);
+            
+           
+            ctx.beginPath();
+            ctx.strokeStyle = '#aa8c6e';
+            ctx.lineWidth = 4;
+            ctx.moveTo(canvas.width * 0.1, canvas.height * 0.13);
+            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.13);
+            ctx.stroke();
+            
+            
+            ctx.font = `bold ${Math.floor(canvas.width * 0.045)}px "Georgia", serif`;
+            ctx.fillStyle = '#3f2e1c';
+            ctx.textAlign = 'left';
+            ctx.fillText("⚡ СРОЧНО: ТЕХНОЛОГИЧЕСКИЙ ПРОРЫВ", canvas.width * 0.07, canvas.height * 0.22);
+            
+            ctx.font = `${Math.floor(canvas.width * 0.028)}px "Segoe UI", "Georgia", serif`;
+            ctx.fillStyle = '#3a3228';
+            const newsText1 = "Компания NeuralSphere представила новый ИИ-алгоритм, способный анализировать глобальные новостные потоки в реальном времени. Эксперты называют это революцией в медиа-сфере.";
+            wrapText(ctx, newsText1, canvas.width * 0.07, canvas.height * 0.29, canvas.width * 0.4, 24);
+            
+            
+            ctx.font = `bold ${Math.floor(canvas.width * 0.038)}px "Georgia", serif`;
+            ctx.fillStyle = '#3f2e1c';
+            ctx.fillText("🌍 КЛИМАТИЧЕСКИЙ САММИТ", canvas.width * 0.07, canvas.height * 0.48);
+            ctx.font = `${Math.floor(canvas.width * 0.028)}px "Segoe UI", serif`;
+            ctx.fillStyle = '#3a3228';
+            const newsText2 = "50 стран подписали новое соглашение по сокращению выбросов. Основная цель — достичь углеродной нейтральности к 2040 году. Лидеры отметили важность глобального сотрудничества.";
+            wrapText(ctx, newsText2, canvas.width * 0.07, canvas.height * 0.55, canvas.width * 0.4, 24);
+            
+            
+            ctx.fillStyle = '#b45f2b';
+            ctx.font = `italic ${Math.floor(canvas.width * 0.03)}px "Georgia", serif`;
+            wrapText(ctx, "«Информация — это новый нефть. А новости — валюта доверия.»", canvas.width * 0.07, canvas.height * 0.73, canvas.width * 0.4, 26);
+            
+     
+            ctx.font = `bold ${Math.floor(canvas.width * 0.032)}px monospace`;
+            ctx.fillStyle = '#2d5820';
+            ctx.fillText("📊 КУРСЫ И ИНДЕКСЫ", canvas.width * 0.07, canvas.height * 0.85);
+            ctx.font = `${Math.floor(canvas.width * 0.026)}px monospace`;
+            ctx.fillStyle = '#1f1e1a';
+            ctx.fillText("USD/RUB: 91.45  |  EUR/RUB: 99.12  |  BTC: $67,200", canvas.width * 0.07, canvas.height * 0.91);
+            ctx.fillText("S&P 500: +0.8%  |  NASDAQ: +1.2%  |  ОIL: $83.5", canvas.width * 0.07, canvas.height * 0.96);
+            
+            
+            
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.anisotropy = 16;
+            texture.needsUpdate = true;
+            return texture;
+        }
+        
+        function createRightNewsTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#fcf5e6';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < 600; i++) {
+                ctx.fillStyle = `rgba(100, 75, 50, ${Math.random() * 0.06})`;
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
+            }
+            
+            ctx.fillStyle = '#2a241e';
+            ctx.font = `bold ${Math.floor(canvas.width * 0.07)}px "Georgia", "Times New Roman", serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText("🌟 WORLD INSIGHT", canvas.width/2, canvas.height * 0.1);
+            ctx.beginPath();
+            ctx.strokeStyle = '#bc9a6b';
+            ctx.lineWidth = 3;
+            ctx.moveTo(canvas.width * 0.1, canvas.height * 0.13);
+            ctx.lineTo(canvas.width * 0.9, canvas.height * 0.13);
+            ctx.stroke();
+            
+           
+            ctx.font = `bold ${Math.floor(canvas.width * 0.042)}px "Georgia", serif`;
+            ctx.fillStyle = '#2c4b32';
+            ctx.textAlign = 'left';
+            ctx.fillText("⚽ СПОРТ: ФИНАЛ ЛИГИ ЧЕМПИОНОВ", canvas.width * 0.06, canvas.height * 0.21);
+            ctx.font = `${Math.floor(canvas.width * 0.028)}px "Segoe UI", serif`;
+            ctx.fillStyle = '#2f2a24';
+            const sportText = "В захватывающем матче «Реал Мадрид» одержал победу над «Баварией» со счётом 3:2. Тысячи болельщиков устроили невероятное шоу на стадионе «Уэмбли».";
+            wrapText(ctx, sportText, canvas.width * 0.06, canvas.height * 0.28, canvas.width * 0.42, 24);
+            
+           
+            ctx.font = `bold ${Math.floor(canvas.width * 0.038)}px "Georgia", serif`;
+            ctx.fillStyle = '#8b4b2a';
+            ctx.fillText("🎭 КУЛЬТУРНЫЙ ФОРУМ", canvas.width * 0.06, canvas.height * 0.44);
+            ctx.font = `${Math.floor(canvas.width * 0.028)}px "Segoe UI", serif`;
+            const cultureText = "В Эрмитаже открылась выставка современного цифрового искусства, объединившая классику и нейросети. Более 100 тысяч человек посетили экспозицию за первую неделю.";
+            wrapText(ctx, cultureText, canvas.width * 0.06, canvas.height * 0.51, canvas.width * 0.42, 24);
+            
+           
+            ctx.font = `bold ${Math.floor(canvas.width * 0.032)}px "Georgia", serif`;
+            ctx.fillStyle = '#2c5f8a';
+            ctx.fillText("☀️ ПРОГНОЗ ПОГОДЫ", canvas.width * 0.52, canvas.height * 0.21);
+            ctx.font = `${Math.floor(canvas.width * 0.026)}px monospace`;
+            ctx.fillStyle = '#2a3e55';
+            ctx.fillText("Москва: +22°C, солнечно", canvas.width * 0.52, canvas.height * 0.275);
+            ctx.fillText("Лондон: +18°C, облачно", canvas.width * 0.52, canvas.height * 0.32);
+            ctx.fillText("Нью-Йорк: +26°C, ясно", canvas.width * 0.52, canvas.height * 0.365);
+            ctx.fillText("Токио: +24°C, дождь", canvas.width * 0.52, canvas.height * 0.41);
+            
+           
+            ctx.font = `bold ${Math.floor(canvas.width * 0.035)}px "Georgia", serif`;
+            ctx.fillStyle = '#5e3a1f';
+            ctx.fillText("📱 IT & БЛОКЧЕЙН", canvas.width * 0.52, canvas.height * 0.5);
+            ctx.font = `${Math.floor(canvas.width * 0.027)}px "Segoe UI"`;
+            ctx.fillStyle = '#2d2b27';
+            const itNews = "Эфириум обновляет протокол: снижение комиссий на 40%. Новый стандарт токенов упростит разработку DeFi-приложений.";
+            wrapText(ctx, itNews, canvas.width * 0.52, canvas.height * 0.56, canvas.width * 0.42, 24);
+            
+            
+            ctx.fillStyle = '#bb7946';
+            ctx.font = `italic ${Math.floor(canvas.width * 0.028)}px "Georgia"`;
+            wrapText(ctx, "🗞️ Факт дня: Первая газета вышла в 1605 году в Страсбурге.", canvas.width * 0.06, canvas.height * 0.78, canvas.width * 0.85, 24);
+            
+            
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.anisotropy = 16;
+            texture.needsUpdate = true;
+            return texture;
+        }
+        
+     
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let testLine = '';
+            let lineArray = [];
+            for (let n = 0; n < words.length; n++) {
+                testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && n > 0) {
+                    lineArray.push(line);
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
+            }
+            lineArray.push(line);
+            for (let i = 0; i < lineArray.length; i++) {
+                ctx.fillText(lineArray[i], x, y + i * lineHeight);
+            }
+            return lineArray.length * lineHeight;
+        }
+        
+    
+        const bookGroup = new THREE.Group();
+        
+       
+        const pageWidth = 2.15;
+        const pageDepth = 2.9;
+        const pageThick = 0.08;
+        const spineOffsetX = 0;
+        
+       
+        const leftTexture = createLeftNewsTexture();
+        const rightTexture = createRightNewsTexture();
+        
+        
+        const paperMaterialRight = new THREE.MeshStandardMaterial({ color: '#f3e9d2', roughness: 0.55, metalness: 0.05 });
+        const paperMaterialLeft = new THREE.MeshStandardMaterial({ color: '#f1e7ce', roughness: 0.55, metalness: 0.05 });
+        const sideMaterial = new THREE.MeshStandardMaterial({ color: '#e3d5b5', roughness: 0.7 });
+    
+        const leftPageGeo = new THREE.BoxGeometry(pageWidth, pageThick, pageDepth);
+    
+        const leftMaterials = [
+            sideMaterial, sideMaterial,                
+            new THREE.MeshStandardMaterial({ map: leftTexture, roughness: 0.45, metalness: 0.02 }), // верх (текстура)
+            paperMaterialLeft,                         
+            sideMaterial, sideMaterial                 
+        ];
+        const leftPage = new THREE.Mesh(leftPageGeo, leftMaterials);
+        leftPage.castShadow = true;
+        leftPage.receiveShadow = false;
+        leftPage.position.set(-pageWidth/2 - 0.04, 0, 0);
+        leftPage.rotation.z = 0.12;
+        leftPage.rotation.x = -0.03;
+        bookGroup.add(leftPage);
+        
+        const rightMaterials = [
+            sideMaterial, sideMaterial,
+            new THREE.MeshStandardMaterial({ map: rightTexture, roughness: 0.45, metalness: 0.02 }), // верх
+            paperMaterialRight,
+            sideMaterial, sideMaterial
+        ];
+        const rightPage = new THREE.Mesh(new THREE.BoxGeometry(pageWidth, pageThick, pageDepth), rightMaterials);
+        rightPage.castShadow = true;
+        rightPage.position.set(pageWidth/2 + 0.04, 0, 0);
+        rightPage.rotation.z = -0.12;
+        rightPage.rotation.x = -0.03;
+        bookGroup.add(rightPage);
+        
+        const extraSheets = 5;
+        for (let i = 1; i <= extraSheets; i++) {
+            const sheetLeft = new THREE.Mesh(
+                new THREE.BoxGeometry(pageWidth - 0.08, 0.02, pageDepth - 0.1),
+                new THREE.MeshStandardMaterial({ color: '#f5efdf', roughness: 0.6 })
+            );
+            sheetLeft.position.set(-pageWidth/2 - 0.02, -0.05 - i * 0.025, 0);
+            sheetLeft.castShadow = true;
+            bookGroup.add(sheetLeft);
+            
+            const sheetRight = new THREE.Mesh(
+                new THREE.BoxGeometry(pageWidth - 0.08, 0.02, pageDepth - 0.1),
+                new THREE.MeshStandardMaterial({ color: '#f5efdf', roughness: 0.6 })
+            );
+            sheetRight.position.set(pageWidth/2 + 0.02, -0.05 - i * 0.025, 0);
+            sheetRight.castShadow = true;
+            bookGroup.add(sheetRight);
+        }
+        
+        const coverMaterial = new THREE.MeshStandardMaterial({ color: '#ac8e68', roughness: 0.35, metalness: 0.1 });
+        const coverLeft = new THREE.Mesh(
+            new THREE.BoxGeometry(pageWidth + 0.12, 0.09, pageDepth + 0.18),
+            coverMaterial
+        );
+        coverLeft.position.set(-pageWidth/2 - 0.08, -0.2, 0);
+        coverLeft.castShadow = true;
+        bookGroup.add(coverLeft);
+        
+        const coverRight = new THREE.Mesh(
+            new THREE.BoxGeometry(pageWidth + 0.12, 0.09, pageDepth + 0.18),
+            coverMaterial
+        );
+        coverRight.position.set(pageWidth/2 + 0.08, -0.2, 0);
+        coverRight.castShadow = true;
+        bookGroup.add(coverRight);
+        
+        const spine = new THREE.Mesh(
+            new THREE.BoxGeometry(0.28, 0.28, pageDepth + 0.2),
+            new THREE.MeshStandardMaterial({ color: '#8b694a', roughness: 0.4, metalness: 0.15 })
+        );
+        spine.position.set(0, -0.08, 0);
+        spine.castShadow = true;
+        bookGroup.add(spine);
+        
+        const spineLines = new THREE.Mesh(
+            new THREE.BoxGeometry(0.1, 0.03, pageDepth + 0.1),
+            new THREE.MeshStandardMaterial({ color: '#c7a16b', metalness: 0.2 })
+        );
+        spineLines.position.set(0, 0.03, 0);
+        bookGroup.add(spineLines);
+        
+        const ribbonMat = new THREE.MeshStandardMaterial({ color: '#bf3e2c' });
+        const ribbon = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.02, 0.45), ribbonMat);
+        ribbon.position.set(0.5, 0.12, pageDepth/2 + 0.15);
+        ribbon.castShadow = true;
+        bookGroup.add(ribbon);
+        
+        const cornerLeft = new THREE.Mesh(
+            new THREE.BoxGeometry(0.15, 0.01, 0.3),
+            new THREE.MeshStandardMaterial({ color: '#f0e2ca' })
+        );
+        cornerLeft.position.set(-pageWidth/2 - 0.05, 0.03, pageDepth/2 - 0.2);
+        cornerLeft.rotation.z = 0.2;
+        bookGroup.add(cornerLeft);
+        
+        const cornerRight = new THREE.Mesh(
+            new THREE.BoxGeometry(0.15, 0.01, 0.3),
+            new THREE.MeshStandardMaterial({ color: '#f0e2ca' })
+        );
+        cornerRight.position.set(pageWidth/2 + 0.05, 0.03, pageDepth/2 - 0.2);
+        cornerRight.rotation.z = -0.2;
+        bookGroup.add(cornerRight);
+        
+        const shadowDecal = new THREE.Mesh(
+            new THREE.PlaneGeometry(pageWidth * 1.2, pageDepth * 0.9),
+            new THREE.ShadowMaterial({ opacity: 0.2, color: 0x000000, transparent: true, side: THREE.DoubleSide })
+        );
+        shadowDecal.rotation.x = -Math.PI / 2;
+        shadowDecal.position.y = -0.28;
+        bookGroup.add(shadowDecal);
+        
+        bookGroup.rotation.x = -0.25;
+        bookGroup.rotation.z = 0.03;
+        bookGroup.position.y = 0.05;
+        scene.add(bookGroup);
+        
+        const particleCount = 250;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount; i++) {
+            particlePositions[i*3] = (Math.random() - 0.5) * 12;
+            particlePositions[i*3+1] = Math.random() * 3;
+            particlePositions[i*3+2] = (Math.random() - 0.5) * 10;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0xdbbd8a,
+            size: 0.03,
+            transparent: true,
+            opacity: 0.3,
+            blending: THREE.AdditiveBlending
+        });
+        const particles = new THREE.Points(particlesGeometry, particleMaterial);
+        scene.add(particles);
+        
+        function animateParticles() {
+            particles.rotation.y += 0.001;
+            particles.rotation.x = Math.sin(Date.now() * 0.0006) * 0.05;
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+        
+        let time = 0;
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.textContent = '📰 НОВОСТНОЙ ДАЙДЖЕСТ • 2025';
+        titleDiv.style.color = '#5b3c1a';
+        titleDiv.style.fontSize = '20px';
+        titleDiv.style.fontWeight = 'bold';
+        titleDiv.style.fontFamily = 'Georgia, serif';
+        titleDiv.style.textShadow = '1px 1px 0px rgba(255,245,220,0.8)';
+        titleDiv.style.background = 'rgba(255, 245, 225, 0.65)';
+        titleDiv.style.padding = '4px 12px';
+        titleDiv.style.borderRadius = '30px';
+        titleDiv.style.backdropFilter = 'blur(4px)';
+        titleDiv.style.border = '1px solid #c7a56b';
+        const titleLabel = new CSS2DObject(titleDiv);
+        titleLabel.position.set(0, 0.85, 0.2);
+        scene.add(titleLabel);
+        
+        const softShadowCircle = new THREE.Mesh(
+            new THREE.CircleGeometry(2.2, 16),
+            new THREE.MeshStandardMaterial({ color: '#bba073', roughness: 0.9, metalness: 0.05, transparent: true, opacity: 0.25 })
+        );
+        softShadowCircle.rotation.x = -Math.PI / 2;
+        softShadowCircle.position.y = -0.38;
+        softShadowCircle.receiveShadow = false;
+        scene.add(softShadowCircle);
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); 
+            
+            time += 0.008;
+            const gentleSway = Math.sin(time) * 0.008;
+            bookGroup.rotation.z = 0.03 + gentleSway * 0.5;
+            bookGroup.position.y = 0.05 + Math.sin(time * 1.3) * 0.002;
+            
+            particles.rotation.y += 0.002;
+            
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+    </script>
+
+</body>
+</html>
