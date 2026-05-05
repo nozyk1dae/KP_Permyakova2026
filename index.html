@@ -10,6 +10,14 @@
        <link rel="stylesheet" href="podpiska.css">
 </head>
 <body>
+
+<!-- типа загрузка -->
+<div class="preloader" id="preloader">
+    <div class="gear"></div>
+    <div class="loading-text">LOADING</div>
+</div>
+
+
         <div class="main-container">
         <div class="image-container">
             <img src="pomexi.png" alt="фото помехов">
@@ -111,48 +119,84 @@
     </div>
 </div>
 
-    <footer>
-     <div class="museum-hero">
-    <div class="content-wrapper">
-      <div class="columns-layout">
-  
-        <div class="col-left">
-          <h1>МУЗЕЙ УСТАРЕВШИХ ПРОФЕССИЙ</h1>
-          <h2>СОХРАНЯЕМ ПАМЯТЬ О ЗАБЫТЫХ РЕМЁСЛАХ</h2>
-          <h3>С 2002 ГОДА.</h3>
-          
-          <div class="contact-block">
 
-            <div class="contact-item addr-line">
-              <span class="addr-dash">—</span> 
-              <strong class="addr-bold">МОСКВА, УЛ. АРБАТ, Д. 24, СТР. 3</strong>
+     <footer class="footer">
+    <div class="footer-columns">
+        <div class="footer-left">
+            <div class="footer-title">🏛️ МУЗЕЙ УСТАРЕВШИХ ПРОФЕССИЙ</div>
+            <div class="footer-description">
+                Сохраняем память о забытых ремёслах<br>
+                с 2002 года.
             </div>
-            <div class="contact-item">+7 (495) 123-45-67</div>
-            <div class="contact-item">
-              <a href="mailto:INFO@OBSOLETE-MUSEUM.RU">INFO@OBSOLETE-MUSEUM.RU</a>
-            </div>
-          </div>
-
-        <div class="col-right">
-          <h4>СОЦСЕТИ</h4>
-          <div class="social-grid">
-            <a href="#" class="social-link">[TELEGRAM]</a>
-            <a href="#" class="social-link">[VK]</a>
-            <a href="#" class="social-link">[YOUTUBE]</a>
-            <a href="#" class="social-link">[ДЗЕН]</a>
-          </div>
-          
-          <div class="archive-block">
-            <div class="archive-title">АРХИВНЫЙ ВЕСТНИК</div>
-            <div class="subscribe-text">ПОДПИШИТЕСЬ НА НОВОСТИ МУЗЕЯ</div>
-          </div>
+            <ul class="footer-contacts">
+                <li>📍 Москва, ул. Арбат, д. 24, стр. 3</li>
+                <li>📞 +7 (495) 123-45-67</li>
+                <li>✉️ info@obsolete-museum.ru</li>
+            </ul>
         </div>
-      </div>
+
+       
+        <div class="footer-right">
+            <div class="social-title">📡 СОЦСЕТИ</div>
+            <div class="social-icons">
+                <a href="#">Telegram</a>
+                <a href="#">VK</a>
+                <a href="#">YouTube</a>
+                <a href="#">Дзен</a>
+            </div>
+
+        </div>
     </div>
-  </div>
+
+    <div class="footer-bottom">
+        © 2026 Музей устаревших профессий • Все права защищены
+    </div>
+
     </footer> 
 
-<figure>
+<script>
+
+ window.addEventListener('load', function() {
+        setTimeout(function() {
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.querySelector('.main-content');
+            
+            preloader.classList.add('hide');
+            
+            if (mainContent) {
+                mainContent.style.opacity = '1';
+                mainContent.style.transition = 'opacity 0.5s ease';
+            }
+            
+            setTimeout(function() {
+                preloader.style.display = 'none';
+            }, 500);
+        }, 4000); 
+    });
+
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const soul = document.querySelector('.soul');
+    const fy = document.querySelector('.FY');
+    
+    if (soul && fy) {
+    
+      soul.style.transform = `translateX(${scrollY * 0.2}px)`;
+      fy.style.transform = `translateX(-${scrollY * 0.2}px)`;
+    }
+  });
+
+
+  window.addEventListener('beforeunload', function() {
+    const allVideos = document.querySelectorAll('video');
+    allVideos.forEach(video => {
+      video.pause();
+    });
+  });
+
+
+</script>
 
     <script src="citata.js"></script>
     <script src="afisha.js"></script>

@@ -2,8 +2,6 @@
            
             const container = document.getElementById('dustFxContainer');
             if (!container) return;
-            
-            // Настройки эффекта
             const CONFIG = {
                 particlesPerMove: 4,        
                 maxParticlesOnScreen: 280,   
@@ -172,7 +170,7 @@
                     backface-visibility: hidden;
                     z-index: 2147483647;
                 }
-                /* Лёгкое затемнение для эффекта старины */
+                
                 @media (prefers-reduced-motion: no-preference) {
                     .dust-particle {
                         transition-timing-function: cubic-bezier(0.15, 0.9, 0.25, 1.1);

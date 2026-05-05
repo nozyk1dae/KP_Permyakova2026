@@ -20,6 +20,59 @@
             text-decoration: none;
         }
 
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('pomexi.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 150px;
+            color: #E5C488;
+            letter-spacing: 4px;
+            margin-top: 150px; 
+            text-align: center;
+        }
+
+        .gear {
+            width: 500px;
+            height: 500px;
+            background-image: url('shesterenka.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: slowSpin 3s linear infinite;
+            margin-top: -50px; /* отрегулируйте положение */
+        }
+
+        @keyframes slowSpin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+
         .content-wrapper {
             width: 100%;
             max-width: 1400px;
@@ -229,15 +282,7 @@
             
         }
 
-        .soul {
-        position: relative;
-        left: 20cm;   
-        }
-
-        .FY {
-         position: relative;
-        right: 20cm;    
-        }
+    
 
         .button2 {
             position: relative;
@@ -293,100 +338,121 @@
         }
 
         /* подвал доделать */
+              
         .footer {
-            position: relative;
-            width: 100vw;
-            height: 50vh;
             background-image: url('podval.png');
-            background-size: cover;      
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            margin-top: auto;
+            color: #3A2809;
+            padding: 60px 80px 30px 80px;
+            font-family: 'Playfair Display', serif;
+            margin-top: 50px;
+        }
+
+        
+        .footer-columns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 50px;
+            min-height: 30vh;
+            min-width: 184vh;
+        }
+
+        
+        .footer-left {
+            flex: 1;
+            min-width: 250px;
         }
 
        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
+        .footer-right {
+            flex: 1;
+            min-width: 250px;
         }
 
         
-        .left-col .museum-title {
-            margin-bottom: 30px;
+        .footer-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
-        .left-col h1 {
-            font-size: 38px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #2C2210;
+
+        
+        .footer-description {
+            font-size: 30px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-contacts {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .footer-contacts li {
+            margin-bottom: 12px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+       
+        .social-title {
+            font-size: 36px;
+            font-weight: 600;
             margin-bottom: 15px;
+            letter-spacing: 1px;
         }
-        .left-col h2 {
-            font-size: 24px;
-            font-weight: normal;
-            font-style: italic;
-            color: #3A2C14;
+
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-icons a {
+            color: #3A2809;
+            text-decoration: none;
+            font-size: 30px;
+            transition: opacity 0.3s;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+
+        
+        .newsletter-title {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 10px;
         }
-        .left-col h3 {
-            font-size: 20px;
-            font-weight: normal;
-            color: #4A3A1A;
-            margin-bottom: 35px;
-        }
-        .contacts {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #2C2210;
-        }
-        .contacts p {
-            margin: 8px 0;
-        }
-        
-        .right-col .social-links {
-            margin-bottom: 30px;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #2C2210;
-            border-bottom: 1px solid #8B7355;
-            display: inline-block;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
-        .right-col .social-item {
-            font-size: 18px;
-            margin: 15px 0;
-            color: #3A2C14;
-        }
-        .right-col .social-item strong {
-            font-weight: bold;
-            color: #2C2210;
-        }
-        .newsletter {
-            margin-top: 30px;
-            font-size: 18px;
-            font-style: italic;
-            background: rgba(139, 115, 85, 0.15);
-            padding: 15px 20px;
-            border-left: 4px solid #8B7355;
-        }
-        .newsletter p {
-            margin: 5px 0;
-        }
 
-        .copyright {
-            text-align: center;
-            border-top: 1px solid #8B7355;
-            padding-top: 30px;
+        .newsletter-text {
             font-size: 14px;
-            letter-spacing: 1px;
-            color: #2C2210;
+            margin-bottom: 15px;
+            opacity: 0.8;
         }
 
+      
+    
+        /* Нижний колонтитул с копирайтом */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        
                 /* МОДАЛКА */
         .modal {
             display: none; 
@@ -400,6 +466,7 @@
             backdrop-filter: blur(3px);
             justify-content: center;
             align-items: center;
+            
         }
 
         
